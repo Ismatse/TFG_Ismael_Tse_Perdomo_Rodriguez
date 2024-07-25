@@ -1,0 +1,53 @@
+05/11 09:55:35 AM | Using GPU: 0 for training
+05/11 10:10:44 AM | 
+Yayy! New best EMA Pseudo Dice
+05/11 10:10:44 AM | [Epoch 40	 EMA Pseudo Dice CholecSeg8k: 0.9237	] ----  [best_Ep_CholecSeg8k 40 best_it_CholecSeg8k 430 best_ema_dice_CholecSeg8k 0.9237] 
+
+05/11 10:10:44 AM | Epoch: 40	Time: 821.1453	Loss: -0.6895	LearningRate 0.000855
+
+05/11 10:19:36 AM | 
+Yayy! New best EMA Pseudo Dice
+05/11 10:19:36 AM | [Epoch 41	 EMA Pseudo Dice CholecSeg8k: 0.9256	] ----  [best_Ep_CholecSeg8k 41 best_it_CholecSeg8k 430 best_ema_dice_CholecSeg8k 0.9256] 
+
+05/11 10:19:36 AM | Epoch: 41	Time: 528.2827	Loss: -0.6889	LearningRate 0.000851
+
+05/11 10:28:28 AM | 
+Yayy! New best EMA Pseudo Dice
+05/11 10:28:28 AM | [Epoch 42	 EMA Pseudo Dice CholecSeg8k: 0.9271	] ----  [best_Ep_CholecSeg8k 42 best_it_CholecSeg8k 430 best_ema_dice_CholecSeg8k 0.9271] 
+
+05/11 10:28:28 AM | Epoch: 42	Time: 528.8286	Loss: -0.7004	LearningRate 0.000847
+
+05/11 10:37:20 AM | 
+Yayy! New best EMA Pseudo Dice
+05/11 10:37:20 AM | [Epoch 43	 EMA Pseudo Dice CholecSeg8k: 0.9285	] ----  [best_Ep_CholecSeg8k 43 best_it_CholecSeg8k 430 best_ema_dice_CholecSeg8k 0.9285] 
+
+05/11 10:37:20 AM | Epoch: 43	Time: 529.3830	Loss: -0.6956	LearningRate 0.000844
+
+05/11 10:46:11 AM | 
+Yayy! New best EMA Pseudo Dice
+05/11 10:46:11 AM | [Epoch 44	 EMA Pseudo Dice CholecSeg8k: 0.9298	] ----  [best_Ep_CholecSeg8k 44 best_it_CholecSeg8k 430 best_ema_dice_CholecSeg8k 0.9298] 
+
+05/11 10:46:11 AM | Epoch: 44	Time: 528.0678	Loss: -0.7033	LearningRate 0.000840
+
+05/11 10:55:03 AM | 
+Yayy! New best EMA Pseudo Dice
+05/11 10:55:03 AM | [Epoch 45	 EMA Pseudo Dice CholecSeg8k: 0.9312	] ----  [best_Ep_CholecSeg8k 45 best_it_CholecSeg8k 430 best_ema_dice_CholecSeg8k 0.9312] 
+
+05/11 10:55:03 AM | Epoch: 45	Time: 528.5901	Loss: -0.6963	LearningRate 0.000836
+
+05/11 11:03:56 AM | 
+Yayy! New best EMA Pseudo Dice
+05/11 11:03:56 AM | [Epoch 46	 EMA Pseudo Dice CholecSeg8k: 0.9319	] ----  [best_Ep_CholecSeg8k 46 best_it_CholecSeg8k 430 best_ema_dice_CholecSeg8k 0.9319] 
+
+05/11 11:03:56 AM | Epoch: 46	Time: 529.5197	Loss: -0.6966	LearningRate 0.000833
+
+05/11 11:12:48 AM | 
+Yayy! New best EMA Pseudo Dice
+05/11 11:12:48 AM | [Epoch 47	 EMA Pseudo Dice CholecSeg8k: 0.9327	] ----  [best_Ep_CholecSeg8k 47 best_it_CholecSeg8k 430 best_ema_dice_CholecSeg8k 0.9327] 
+
+05/11 11:12:48 AM | Epoch: 47	Time: 529.4552	Loss: -0.7027	LearningRate 0.000829
+
+05/11 11:21:40 AM | [Epoch 48	 EMA Pseudo Dice CholecSeg8k: 0.9303	] ----  [best_Ep_CholecSeg8k 47 best_it_CholecSeg8k 430 best_ema_dice_CholecSeg8k 0.9327] 
+
+05/11 11:21:41 AM | Epoch: 48	Time: 529.0635	Loss: -0.6947	LearningRate 0.000825
+

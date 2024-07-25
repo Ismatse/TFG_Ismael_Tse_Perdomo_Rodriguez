@@ -1,0 +1,7 @@
+05/18 03:45:00 PM | Using GPU: 0 for training
+05/18 04:00:34 PM | 
+Yayy! New best EMA Pseudo Dice
+05/18 04:00:34 PM | [Epoch 67	 EMA Pseudo Dice CholecSeg8k: 0.9392	] ----  [best_Ep_CholecSeg8k 67 best_it_CholecSeg8k 430 best_ema_dice_CholecSeg8k 0.9392] 
+
+05/18 04:00:34 PM | Epoch: 67	Time: 856.6442	Loss: -0.6988	LearningRate 0.000755
+

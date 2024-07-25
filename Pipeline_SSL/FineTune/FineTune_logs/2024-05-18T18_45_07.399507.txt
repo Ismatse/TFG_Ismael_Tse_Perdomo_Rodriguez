@@ -1,0 +1,13 @@
+05/18 06:45:07 PM | Using GPU: 0 for training
+05/18 07:01:36 PM | 
+Yayy! New best EMA Pseudo Dice
+05/18 07:01:36 PM | [Epoch 73	 EMA Pseudo Dice CholecSeg8k: 0.9334	] ----  [best_Ep_CholecSeg8k 73 best_it_CholecSeg8k 430 best_ema_dice_CholecSeg8k 0.9334] 
+
+05/18 07:01:36 PM | Epoch: 73	Time: 912.9072	Loss: -0.7040	LearningRate 0.000733
+
+05/18 07:10:28 PM | 
+Yayy! New best EMA Pseudo Dice
+05/18 07:10:28 PM | [Epoch 74	 EMA Pseudo Dice CholecSeg8k: 0.9342	] ----  [best_Ep_CholecSeg8k 74 best_it_CholecSeg8k 430 best_ema_dice_CholecSeg8k 0.9342] 
+
+05/18 07:10:28 PM | Epoch: 74	Time: 527.7847	Loss: -0.7075	LearningRate 0.000729
+

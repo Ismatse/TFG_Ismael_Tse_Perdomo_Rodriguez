@@ -1,0 +1,30 @@
+{
+    "all_results": {
+        "nnUNetTrainer_250epochs__nnUNetPlans__2d": 0.9333262798129236
+    },
+    "best_model_or_ensemble": {
+        "postprocessing_file": "/content/drive/MyDrive/TFG/V2/nnUNet_results/Dataset212_CholecSeg8kV2/nnUNetTrainer_250epochs__nnUNetPlans__2d/crossval_results_folds_0/postprocessing.pkl",
+        "result_on_crossval_post_pp": 0.9333332413869356,
+        "result_on_crossval_pre_pp": 0.9333262798129236,
+        "selected_model_or_models": [
+            {
+                "configuration": "2d",
+                "plans_identifier": "nnUNetPlans",
+                "trainer": "nnUNetTrainer_250epochs"
+            }
+        ],
+        "some_plans_file": "/content/drive/MyDrive/TFG/V2/nnUNet_results/Dataset212_CholecSeg8kV2/nnUNetTrainer_250epochs__nnUNetPlans__2d/crossval_results_folds_0/plans.json"
+    },
+    "considered_models": [
+        {
+            "configuration": "2d",
+            "plans": "nnUNetPlans",
+            "trainer": "nnUNetTrainer_250epochs"
+        }
+    ],
+    "dataset_name_or_id": "Dataset212_CholecSeg8kV2",
+    "ensembling_allowed": false,
+    "folds": [
+        0
+    ]
+}

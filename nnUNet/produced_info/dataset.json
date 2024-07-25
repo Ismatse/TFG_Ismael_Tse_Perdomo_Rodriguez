@@ -1,0 +1,25 @@
+{
+    "channel_names": {
+        "0": "R",
+        "1": "G",
+        "2": "B"
+    },
+    "labels": {
+        "background": 0,
+        "abdominal_wall": 1,
+        "liver": 2,
+        "gastrointestinal_tract": 3,
+        "fat": 4,
+        "grasper": 5,
+        "connective_tissue": 6,
+        "blood": 7,
+        "cystic_duct": 8,
+        "lhook_electrocautery": 9,
+        "gallbladder": 10,
+        "hepatic_vein": 11,
+        "liver_ligament": 12
+    },
+    "numTraining": 6464,
+    "file_ending": ".png",
+    "name": "CholecSeg8kV2"
+}

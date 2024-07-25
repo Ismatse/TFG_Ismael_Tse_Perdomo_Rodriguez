@@ -1,0 +1,829 @@
+Namespace(batch_size=4, nepoch=250, train_workers=6, eval_workers=6, dataset='CholecSeg8k', pretrain_weights='./logs/CholecSeg8k/Uformer_T_/models/model_latest.pth', optimizer='adamw', lr_initial=0.001, step_lr=50, weight_decay=0.02, gpu='0', arch='Uformer_T', mode='denoising', dd_in=3, save_dir='./logs/', save_images=False, env='_', checkpoint=1, norm_layer='nn.LayerNorm', embed_dim=32, win_size=8, token_projection='linear', token_mlp='leff', att_se=False, modulator=False, vit_dim=256, vit_depth=12, vit_nheads=8, vit_mlp_dim=512, vit_patch_size=16, global_skip=False, local_skip=False, vit_share=False, train_ps_a=256, train_ps_b=512, val_ps_a=256, val_ps_b=512, resume=True, train_dir='./dataV3/CholecSeg8k/train', val_dir='./dataV3/CholecSeg8k/val', warmup=False, warmup_epochs=3, local_rank=-1, distribute=False, distribute_mode='DDP', segmentation=True, num_classes=13)
+Uformer(
+  embed_dim=16, token_projection=linear, token_mlp=leff,win_size=8
+  (pos_drop): Dropout(p=0.0, inplace=False)
+  (input_proj): InputProj(
+    (proj): Sequential(
+      (0): Conv2d(3, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+      (1): LeakyReLU(negative_slope=0.01, inplace=True)
+    )
+  )
+  (output_proj): OutputProj(
+    (proj): Sequential(
+      (0): Conv2d(32, 13, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+  )
+  (encoderlayer_0): BasicUformerLayer(
+    dim=16, input_resolution=(256, 512), depth=2
+    (blocks): ModuleList(
+      (0): LeWinTransformerBlock(
+        dim=16, input_resolution=(256, 512), num_heads=1, win_size=8, shift_size=0, mlp_ratio=4.0,modulator=None
+        (norm1): LayerNorm((16,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=16, win_size=(8, 8), num_heads=1
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=16, out_features=16, bias=True)
+            (to_kv): Linear(in_features=16, out_features=32, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=16, out_features=16, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((16,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=16, out_features=64, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=64)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=64, out_features=16, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+      (1): LeWinTransformerBlock(
+        dim=16, input_resolution=(256, 512), num_heads=1, win_size=8, shift_size=4, mlp_ratio=4.0,modulator=None
+        (norm1): LayerNorm((16,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=16, win_size=(8, 8), num_heads=1
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=16, out_features=16, bias=True)
+            (to_kv): Linear(in_features=16, out_features=32, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=16, out_features=16, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): DropPath(drop_prob=0.014)
+        (norm2): LayerNorm((16,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=16, out_features=64, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=64)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=64, out_features=16, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+    )
+  )
+  (dowsample_0): Downsample(
+    (conv): Sequential(
+      (0): Conv2d(16, 32, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+    )
+  )
+  (encoderlayer_1): BasicUformerLayer(
+    dim=32, input_resolution=(128, 256), depth=2
+    (blocks): ModuleList(
+      (0): LeWinTransformerBlock(
+        dim=32, input_resolution=(128, 256), num_heads=2, win_size=8, shift_size=0, mlp_ratio=4.0,modulator=None
+        (norm1): LayerNorm((32,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=32, win_size=(8, 8), num_heads=2
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=32, out_features=32, bias=True)
+            (to_kv): Linear(in_features=32, out_features=64, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=32, out_features=32, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): DropPath(drop_prob=0.029)
+        (norm2): LayerNorm((32,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=32, out_features=128, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=128, out_features=32, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+      (1): LeWinTransformerBlock(
+        dim=32, input_resolution=(128, 256), num_heads=2, win_size=8, shift_size=4, mlp_ratio=4.0,modulator=None
+        (norm1): LayerNorm((32,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=32, win_size=(8, 8), num_heads=2
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=32, out_features=32, bias=True)
+            (to_kv): Linear(in_features=32, out_features=64, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=32, out_features=32, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): DropPath(drop_prob=0.043)
+        (norm2): LayerNorm((32,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=32, out_features=128, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=128, out_features=32, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+    )
+  )
+  (dowsample_1): Downsample(
+    (conv): Sequential(
+      (0): Conv2d(32, 64, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+    )
+  )
+  (encoderlayer_2): BasicUformerLayer(
+    dim=64, input_resolution=(64, 128), depth=2
+    (blocks): ModuleList(
+      (0): LeWinTransformerBlock(
+        dim=64, input_resolution=(64, 128), num_heads=4, win_size=8, shift_size=0, mlp_ratio=4.0,modulator=None
+        (norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=64, win_size=(8, 8), num_heads=4
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=64, out_features=64, bias=True)
+            (to_kv): Linear(in_features=64, out_features=128, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=64, out_features=64, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): DropPath(drop_prob=0.057)
+        (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=64, out_features=256, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=256, out_features=64, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+      (1): LeWinTransformerBlock(
+        dim=64, input_resolution=(64, 128), num_heads=4, win_size=8, shift_size=4, mlp_ratio=4.0,modulator=None
+        (norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=64, win_size=(8, 8), num_heads=4
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=64, out_features=64, bias=True)
+            (to_kv): Linear(in_features=64, out_features=128, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=64, out_features=64, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): DropPath(drop_prob=0.071)
+        (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=64, out_features=256, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=256, out_features=64, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+    )
+  )
+  (dowsample_2): Downsample(
+    (conv): Sequential(
+      (0): Conv2d(64, 128, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+    )
+  )
+  (encoderlayer_3): BasicUformerLayer(
+    dim=128, input_resolution=(32, 64), depth=2
+    (blocks): ModuleList(
+      (0): LeWinTransformerBlock(
+        dim=128, input_resolution=(32, 64), num_heads=8, win_size=8, shift_size=0, mlp_ratio=4.0,modulator=None
+        (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=128, win_size=(8, 8), num_heads=8
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=128, out_features=128, bias=True)
+            (to_kv): Linear(in_features=128, out_features=256, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=128, out_features=128, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): DropPath(drop_prob=0.086)
+        (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=128, out_features=512, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=512, out_features=128, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+      (1): LeWinTransformerBlock(
+        dim=128, input_resolution=(32, 64), num_heads=8, win_size=8, shift_size=4, mlp_ratio=4.0,modulator=None
+        (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=128, win_size=(8, 8), num_heads=8
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=128, out_features=128, bias=True)
+            (to_kv): Linear(in_features=128, out_features=256, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=128, out_features=128, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): DropPath(drop_prob=0.100)
+        (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=128, out_features=512, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=512, out_features=128, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+    )
+  )
+  (dowsample_3): Downsample(
+    (conv): Sequential(
+      (0): Conv2d(128, 256, kernel_size=(4, 4), stride=(2, 2), padding=(1, 1))
+    )
+  )
+  (conv): BasicUformerLayer(
+    dim=256, input_resolution=(16, 32), depth=2
+    (blocks): ModuleList(
+      (0): LeWinTransformerBlock(
+        dim=256, input_resolution=(16, 32), num_heads=16, win_size=8, shift_size=0, mlp_ratio=4.0,modulator=None
+        (norm1): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=256, win_size=(8, 8), num_heads=16
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=256, out_features=256, bias=True)
+            (to_kv): Linear(in_features=256, out_features=512, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=256, out_features=256, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): DropPath(drop_prob=0.100)
+        (norm2): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=256, out_features=1024, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(1024, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1024)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=1024, out_features=256, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+      (1): LeWinTransformerBlock(
+        dim=256, input_resolution=(16, 32), num_heads=16, win_size=8, shift_size=4, mlp_ratio=4.0,modulator=None
+        (norm1): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=256, win_size=(8, 8), num_heads=16
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=256, out_features=256, bias=True)
+            (to_kv): Linear(in_features=256, out_features=512, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=256, out_features=256, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): DropPath(drop_prob=0.100)
+        (norm2): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=256, out_features=1024, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(1024, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1024)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=1024, out_features=256, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+    )
+  )
+  (upsample_0): Upsample(
+    (deconv): Sequential(
+      (0): ConvTranspose2d(256, 128, kernel_size=(2, 2), stride=(2, 2))
+    )
+  )
+  (decoderlayer_0): BasicUformerLayer(
+    dim=256, input_resolution=(32, 64), depth=2
+    (blocks): ModuleList(
+      (0): LeWinTransformerBlock(
+        dim=256, input_resolution=(32, 64), num_heads=16, win_size=8, shift_size=0, mlp_ratio=4.0,modulator=Embedding(64, 256)
+        (modulator): Embedding(64, 256)
+        (norm1): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=256, win_size=(8, 8), num_heads=16
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=256, out_features=256, bias=True)
+            (to_kv): Linear(in_features=256, out_features=512, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=256, out_features=256, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): DropPath(drop_prob=0.100)
+        (norm2): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=256, out_features=1024, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(1024, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1024)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=1024, out_features=256, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+      (1): LeWinTransformerBlock(
+        dim=256, input_resolution=(32, 64), num_heads=16, win_size=8, shift_size=4, mlp_ratio=4.0,modulator=Embedding(64, 256)
+        (modulator): Embedding(64, 256)
+        (norm1): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=256, win_size=(8, 8), num_heads=16
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=256, out_features=256, bias=True)
+            (to_kv): Linear(in_features=256, out_features=512, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=256, out_features=256, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): DropPath(drop_prob=0.086)
+        (norm2): LayerNorm((256,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=256, out_features=1024, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(1024, 1024, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=1024)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=1024, out_features=256, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+    )
+  )
+  (upsample_1): Upsample(
+    (deconv): Sequential(
+      (0): ConvTranspose2d(256, 64, kernel_size=(2, 2), stride=(2, 2))
+    )
+  )
+  (decoderlayer_1): BasicUformerLayer(
+    dim=128, input_resolution=(64, 128), depth=2
+    (blocks): ModuleList(
+      (0): LeWinTransformerBlock(
+        dim=128, input_resolution=(64, 128), num_heads=8, win_size=8, shift_size=0, mlp_ratio=4.0,modulator=Embedding(64, 128)
+        (modulator): Embedding(64, 128)
+        (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=128, win_size=(8, 8), num_heads=8
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=128, out_features=128, bias=True)
+            (to_kv): Linear(in_features=128, out_features=256, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=128, out_features=128, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): DropPath(drop_prob=0.071)
+        (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=128, out_features=512, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=512, out_features=128, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+      (1): LeWinTransformerBlock(
+        dim=128, input_resolution=(64, 128), num_heads=8, win_size=8, shift_size=4, mlp_ratio=4.0,modulator=Embedding(64, 128)
+        (modulator): Embedding(64, 128)
+        (norm1): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=128, win_size=(8, 8), num_heads=8
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=128, out_features=128, bias=True)
+            (to_kv): Linear(in_features=128, out_features=256, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=128, out_features=128, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): DropPath(drop_prob=0.057)
+        (norm2): LayerNorm((128,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=128, out_features=512, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=512)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=512, out_features=128, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+    )
+  )
+  (upsample_2): Upsample(
+    (deconv): Sequential(
+      (0): ConvTranspose2d(128, 32, kernel_size=(2, 2), stride=(2, 2))
+    )
+  )
+  (decoderlayer_2): BasicUformerLayer(
+    dim=64, input_resolution=(128, 256), depth=2
+    (blocks): ModuleList(
+      (0): LeWinTransformerBlock(
+        dim=64, input_resolution=(128, 256), num_heads=4, win_size=8, shift_size=0, mlp_ratio=4.0,modulator=Embedding(64, 64)
+        (modulator): Embedding(64, 64)
+        (norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=64, win_size=(8, 8), num_heads=4
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=64, out_features=64, bias=True)
+            (to_kv): Linear(in_features=64, out_features=128, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=64, out_features=64, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): DropPath(drop_prob=0.043)
+        (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=64, out_features=256, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=256, out_features=64, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+      (1): LeWinTransformerBlock(
+        dim=64, input_resolution=(128, 256), num_heads=4, win_size=8, shift_size=4, mlp_ratio=4.0,modulator=Embedding(64, 64)
+        (modulator): Embedding(64, 64)
+        (norm1): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=64, win_size=(8, 8), num_heads=4
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=64, out_features=64, bias=True)
+            (to_kv): Linear(in_features=64, out_features=128, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=64, out_features=64, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): DropPath(drop_prob=0.029)
+        (norm2): LayerNorm((64,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=64, out_features=256, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=256)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=256, out_features=64, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+    )
+  )
+  (upsample_3): Upsample(
+    (deconv): Sequential(
+      (0): ConvTranspose2d(64, 16, kernel_size=(2, 2), stride=(2, 2))
+    )
+  )
+  (decoderlayer_3): BasicUformerLayer(
+    dim=32, input_resolution=(256, 512), depth=2
+    (blocks): ModuleList(
+      (0): LeWinTransformerBlock(
+        dim=32, input_resolution=(256, 512), num_heads=2, win_size=8, shift_size=0, mlp_ratio=4.0,modulator=Embedding(64, 32)
+        (modulator): Embedding(64, 32)
+        (norm1): LayerNorm((32,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=32, win_size=(8, 8), num_heads=2
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=32, out_features=32, bias=True)
+            (to_kv): Linear(in_features=32, out_features=64, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=32, out_features=32, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): DropPath(drop_prob=0.014)
+        (norm2): LayerNorm((32,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=32, out_features=128, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=128, out_features=32, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+      (1): LeWinTransformerBlock(
+        dim=32, input_resolution=(256, 512), num_heads=2, win_size=8, shift_size=4, mlp_ratio=4.0,modulator=Embedding(64, 32)
+        (modulator): Embedding(64, 32)
+        (norm1): LayerNorm((32,), eps=1e-05, elementwise_affine=True)
+        (attn): WindowAttention(
+          dim=32, win_size=(8, 8), num_heads=2
+          (qkv): LinearProjection(
+            (to_q): Linear(in_features=32, out_features=32, bias=True)
+            (to_kv): Linear(in_features=32, out_features=64, bias=True)
+          )
+          (attn_drop): Dropout(p=0.0, inplace=False)
+          (proj): Linear(in_features=32, out_features=32, bias=True)
+          (proj_drop): Dropout(p=0.0, inplace=False)
+          (softmax): Softmax(dim=-1)
+        )
+        (drop_path): Identity()
+        (norm2): LayerNorm((32,), eps=1e-05, elementwise_affine=True)
+        (mlp): LeFF(
+          (linear1): Sequential(
+            (0): Linear(in_features=32, out_features=128, bias=True)
+            (1): GELU(approximate='none')
+          )
+          (dwconv): Sequential(
+            (0): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), groups=128)
+            (1): GELU(approximate='none')
+          )
+          (linear2): Sequential(
+            (0): Linear(in_features=128, out_features=32, bias=True)
+          )
+          (eca): Identity()
+        )
+      )
+    )
+  )
+)
+[Epoch 169	 EMA Pseudo Dice CholecSeg8k: 0.9457	] ----  [best_Ep_CholecSeg8k 169 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9457] 
+Epoch: 169	Time: 1589.4675	Loss: -0.7005	LearningRate 0.000363
+[Epoch 170	 EMA Pseudo Dice CholecSeg8k: 0.9458	] ----  [best_Ep_CholecSeg8k 170 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9458] 
+Epoch: 170	Time: 884.3629	Loss: -0.7027	LearningRate 0.000359
+[Epoch 171	 EMA Pseudo Dice CholecSeg8k: 0.9459	] ----  [best_Ep_CholecSeg8k 171 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9459] 
+Epoch: 171	Time: 890.6152	Loss: -0.7044	LearningRate 0.000355
+[Epoch 172	 EMA Pseudo Dice CholecSeg8k: 0.9461	] ----  [best_Ep_CholecSeg8k 172 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9461] 
+Epoch: 172	Time: 892.5766	Loss: -0.7069	LearningRate 0.000351
+[Epoch 173	 EMA Pseudo Dice CholecSeg8k: 0.9462	] ----  [best_Ep_CholecSeg8k 173 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9462] 
+Epoch: 173	Time: 892.0445	Loss: -0.7046	LearningRate 0.000346
+[Epoch 174	 EMA Pseudo Dice CholecSeg8k: 0.9462	] ----  [best_Ep_CholecSeg8k 174 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9462] 
+Epoch: 174	Time: 890.8268	Loss: -0.7055	LearningRate 0.000342
+[Epoch 175	 EMA Pseudo Dice CholecSeg8k: 0.9462	] ----  [best_Ep_CholecSeg8k 174 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9462] 
+Epoch: 175	Time: 890.8622	Loss: -0.7037	LearningRate 0.000338
+[Epoch 176	 EMA Pseudo Dice CholecSeg8k: 0.9463	] ----  [best_Ep_CholecSeg8k 176 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9463] 
+Epoch: 176	Time: 891.8776	Loss: -0.7044	LearningRate 0.000334
+[Epoch 177	 EMA Pseudo Dice CholecSeg8k: 0.9465	] ----  [best_Ep_CholecSeg8k 177 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9465] 
+Epoch: 177	Time: 893.2513	Loss: -0.7089	LearningRate 0.000330
+[Epoch 178	 EMA Pseudo Dice CholecSeg8k: 0.9466	] ----  [best_Ep_CholecSeg8k 178 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9466] 
+Epoch: 178	Time: 894.5475	Loss: -0.7074	LearningRate 0.000326
+[Epoch 179	 EMA Pseudo Dice CholecSeg8k: 0.9468	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 179	Time: 888.0635	Loss: -0.7040	LearningRate 0.000322
+[Epoch 180	 EMA Pseudo Dice CholecSeg8k: 0.9467	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 180	Time: 885.0468	Loss: -0.7674	LearningRate 0.000318
+[Epoch 181	 EMA Pseudo Dice CholecSeg8k: 0.9455	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 181	Time: 886.9260	Loss: -0.8650	LearningRate 0.000314
+[Epoch 182	 EMA Pseudo Dice CholecSeg8k: 0.9457	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 182	Time: 885.8708	Loss: -0.8911	LearningRate 0.000310
+[Epoch 183	 EMA Pseudo Dice CholecSeg8k: 0.9459	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 183	Time: 886.8385	Loss: -0.8916	LearningRate 0.000306
+[Epoch 184	 EMA Pseudo Dice CholecSeg8k: 0.9460	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 184	Time: 886.0819	Loss: -0.8913	LearningRate 0.000302
+[Epoch 185	 EMA Pseudo Dice CholecSeg8k: 0.9458	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 185	Time: 883.1361	Loss: -0.8765	LearningRate 0.000297
+[Epoch 186	 EMA Pseudo Dice CholecSeg8k: 0.9457	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 186	Time: 883.0967	Loss: -0.8897	LearningRate 0.000293
+[Epoch 187	 EMA Pseudo Dice CholecSeg8k: 0.9454	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 187	Time: 883.8302	Loss: -0.8904	LearningRate 0.000289
+[Epoch 188	 EMA Pseudo Dice CholecSeg8k: 0.9455	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 188	Time: 882.5163	Loss: -0.8925	LearningRate 0.000285
+[Epoch 189	 EMA Pseudo Dice CholecSeg8k: 0.9449	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 189	Time: 883.7361	Loss: -0.8912	LearningRate 0.000281
+[Epoch 190	 EMA Pseudo Dice CholecSeg8k: 0.9452	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 190	Time: 884.3185	Loss: -0.8930	LearningRate 0.000277
+[Epoch 191	 EMA Pseudo Dice CholecSeg8k: 0.9455	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 191	Time: 884.3798	Loss: -0.8881	LearningRate 0.000273
+[Epoch 192	 EMA Pseudo Dice CholecSeg8k: 0.9457	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 192	Time: 882.8963	Loss: -0.8951	LearningRate 0.000268
+[Epoch 193	 EMA Pseudo Dice CholecSeg8k: 0.9460	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 193	Time: 884.8998	Loss: -0.8924	LearningRate 0.000264
+[Epoch 194	 EMA Pseudo Dice CholecSeg8k: 0.9461	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 194	Time: 885.7100	Loss: -0.8939	LearningRate 0.000260
+[Epoch 195	 EMA Pseudo Dice CholecSeg8k: 0.9464	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 195	Time: 883.5679	Loss: -0.8955	LearningRate 0.000256
+[Epoch 196	 EMA Pseudo Dice CholecSeg8k: 0.9465	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 196	Time: 882.9785	Loss: -0.8942	LearningRate 0.000252
+[Epoch 197	 EMA Pseudo Dice CholecSeg8k: 0.9467	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 197	Time: 881.8904	Loss: -0.8967	LearningRate 0.000248
+[Epoch 198	 EMA Pseudo Dice CholecSeg8k: 0.9468	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 198	Time: 881.5485	Loss: -0.8942	LearningRate 0.000243
+[Epoch 199	 EMA Pseudo Dice CholecSeg8k: 0.9467	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 199	Time: 881.3393	Loss: -0.8974	LearningRate 0.000239
+[Epoch 200	 EMA Pseudo Dice CholecSeg8k: 0.9465	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 200	Time: 883.9406	Loss: -0.8949	LearningRate 0.000235
+[Epoch 201	 EMA Pseudo Dice CholecSeg8k: 0.9466	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 201	Time: 884.3399	Loss: -0.8953	LearningRate 0.000231
+[Epoch 202	 EMA Pseudo Dice CholecSeg8k: 0.9462	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 202	Time: 886.4071	Loss: -0.8934	LearningRate 0.000226
+[Epoch 203	 EMA Pseudo Dice CholecSeg8k: 0.9464	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 203	Time: 885.6381	Loss: -0.8946	LearningRate 0.000222
+[Epoch 204	 EMA Pseudo Dice CholecSeg8k: 0.9456	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 204	Time: 885.7966	Loss: -0.8984	LearningRate 0.000218
+[Epoch 205	 EMA Pseudo Dice CholecSeg8k: 0.9458	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 205	Time: 882.9464	Loss: -0.8992	LearningRate 0.000214
+[Epoch 206	 EMA Pseudo Dice CholecSeg8k: 0.9458	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 206	Time: 885.4757	Loss: -0.8984	LearningRate 0.000209
+[Epoch 207	 EMA Pseudo Dice CholecSeg8k: 0.9461	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 207	Time: 885.3717	Loss: -0.9012	LearningRate 0.000205
+[Epoch 208	 EMA Pseudo Dice CholecSeg8k: 0.9462	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 208	Time: 889.2655	Loss: -0.8964	LearningRate 0.000201
+[Epoch 209	 EMA Pseudo Dice CholecSeg8k: 0.9463	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 209	Time: 884.3810	Loss: -0.8960	LearningRate 0.000196
+[Epoch 210	 EMA Pseudo Dice CholecSeg8k: 0.9464	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 210	Time: 883.8487	Loss: -0.9006	LearningRate 0.000192
+[Epoch 211	 EMA Pseudo Dice CholecSeg8k: 0.9466	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 211	Time: 884.6623	Loss: -0.9023	LearningRate 0.000188
+[Epoch 212	 EMA Pseudo Dice CholecSeg8k: 0.9467	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 212	Time: 885.8833	Loss: -0.8984	LearningRate 0.000184
+[Epoch 213	 EMA Pseudo Dice CholecSeg8k: 0.9467	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 213	Time: 886.8447	Loss: -0.9004	LearningRate 0.000179
+[Epoch 214	 EMA Pseudo Dice CholecSeg8k: 0.9468	] ----  [best_Ep_CholecSeg8k 179 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9468] 
+Epoch: 214	Time: 884.5266	Loss: -0.9018	LearningRate 0.000175
+[Epoch 215	 EMA Pseudo Dice CholecSeg8k: 0.9469	] ----  [best_Ep_CholecSeg8k 215 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9469] 
+Epoch: 215	Time: 892.0883	Loss: -0.9000	LearningRate 0.000170
+[Epoch 216	 EMA Pseudo Dice CholecSeg8k: 0.9470	] ----  [best_Ep_CholecSeg8k 216 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9470] 
+Epoch: 216	Time: 886.2176	Loss: -0.9009	LearningRate 0.000166
+[Epoch 217	 EMA Pseudo Dice CholecSeg8k: 0.9471	] ----  [best_Ep_CholecSeg8k 217 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9471] 
+Epoch: 217	Time: 887.7578	Loss: -0.9036	LearningRate 0.000162
+[Epoch 218	 EMA Pseudo Dice CholecSeg8k: 0.9472	] ----  [best_Ep_CholecSeg8k 218 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9472] 
+Epoch: 218	Time: 889.2177	Loss: -0.9023	LearningRate 0.000157
+[Epoch 219	 EMA Pseudo Dice CholecSeg8k: 0.9473	] ----  [best_Ep_CholecSeg8k 219 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9473] 
+Epoch: 219	Time: 892.5160	Loss: -0.9036	LearningRate 0.000153
+[Epoch 220	 EMA Pseudo Dice CholecSeg8k: 0.9474	] ----  [best_Ep_CholecSeg8k 220 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9474] 
+Epoch: 220	Time: 888.8516	Loss: -0.8965	LearningRate 0.000148
+[Epoch 221	 EMA Pseudo Dice CholecSeg8k: 0.9475	] ----  [best_Ep_CholecSeg8k 221 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9475] 
+Epoch: 221	Time: 889.2719	Loss: -0.9033	LearningRate 0.000144
+[Epoch 222	 EMA Pseudo Dice CholecSeg8k: 0.9475	] ----  [best_Ep_CholecSeg8k 222 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9475] 
+Epoch: 222	Time: 890.2850	Loss: -0.9037	LearningRate 0.000139
+[Epoch 223	 EMA Pseudo Dice CholecSeg8k: 0.9476	] ----  [best_Ep_CholecSeg8k 223 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9476] 
+Epoch: 223	Time: 895.0696	Loss: -0.9037	LearningRate 0.000135
+[Epoch 224	 EMA Pseudo Dice CholecSeg8k: 0.9476	] ----  [best_Ep_CholecSeg8k 224 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9476] 
+Epoch: 224	Time: 895.5346	Loss: -0.9051	LearningRate 0.000130
+[Epoch 225	 EMA Pseudo Dice CholecSeg8k: 0.9477	] ----  [best_Ep_CholecSeg8k 225 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9477] 
+Epoch: 225	Time: 887.7728	Loss: -0.9041	LearningRate 0.000126
+[Epoch 226	 EMA Pseudo Dice CholecSeg8k: 0.9479	] ----  [best_Ep_CholecSeg8k 226 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9479] 
+Epoch: 226	Time: 887.2790	Loss: -0.9053	LearningRate 0.000121
+[Epoch 227	 EMA Pseudo Dice CholecSeg8k: 0.9480	] ----  [best_Ep_CholecSeg8k 227 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9480] 
+Epoch: 227	Time: 885.5035	Loss: -0.9083	LearningRate 0.000117
+[Epoch 228	 EMA Pseudo Dice CholecSeg8k: 0.9481	] ----  [best_Ep_CholecSeg8k 228 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9481] 
+Epoch: 228	Time: 885.8657	Loss: -0.9048	LearningRate 0.000112
+[Epoch 229	 EMA Pseudo Dice CholecSeg8k: 0.9482	] ----  [best_Ep_CholecSeg8k 229 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9482] 
+Epoch: 229	Time: 885.4454	Loss: -0.9048	LearningRate 0.000108
+[Epoch 230	 EMA Pseudo Dice CholecSeg8k: 0.9483	] ----  [best_Ep_CholecSeg8k 230 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9483] 
+Epoch: 230	Time: 887.6811	Loss: -0.9076	LearningRate 0.000103
+[Epoch 231	 EMA Pseudo Dice CholecSeg8k: 0.9484	] ----  [best_Ep_CholecSeg8k 231 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9484] 
+Epoch: 231	Time: 888.3681	Loss: -0.9093	LearningRate 0.000098
+[Epoch 232	 EMA Pseudo Dice CholecSeg8k: 0.9485	] ----  [best_Ep_CholecSeg8k 232 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9485] 
+Epoch: 232	Time: 890.1913	Loss: -0.9081	LearningRate 0.000094
+[Epoch 233	 EMA Pseudo Dice CholecSeg8k: 0.9485	] ----  [best_Ep_CholecSeg8k 233 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9485] 
+Epoch: 233	Time: 891.8326	Loss: -0.9091	LearningRate 0.000089
+[Epoch 234	 EMA Pseudo Dice CholecSeg8k: 0.9486	] ----  [best_Ep_CholecSeg8k 234 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9486] 
+Epoch: 234	Time: 891.3478	Loss: -0.9096	LearningRate 0.000084
+[Epoch 235	 EMA Pseudo Dice CholecSeg8k: 0.9486	] ----  [best_Ep_CholecSeg8k 235 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9486] 
+Epoch: 235	Time: 888.9356	Loss: -0.9087	LearningRate 0.000079
+[Epoch 236	 EMA Pseudo Dice CholecSeg8k: 0.9487	] ----  [best_Ep_CholecSeg8k 236 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9487] 
+Epoch: 236	Time: 888.3890	Loss: -0.9106	LearningRate 0.000075
+[Epoch 237	 EMA Pseudo Dice CholecSeg8k: 0.9488	] ----  [best_Ep_CholecSeg8k 237 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9488] 
+Epoch: 237	Time: 892.6002	Loss: -0.9089	LearningRate 0.000070
+[Epoch 238	 EMA Pseudo Dice CholecSeg8k: 0.9488	] ----  [best_Ep_CholecSeg8k 238 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9488] 
+Epoch: 238	Time: 889.7609	Loss: -0.9088	LearningRate 0.000065
+[Epoch 239	 EMA Pseudo Dice CholecSeg8k: 0.9489	] ----  [best_Ep_CholecSeg8k 239 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9489] 
+Epoch: 239	Time: 889.3517	Loss: -0.9116	LearningRate 0.000060
+[Epoch 240	 EMA Pseudo Dice CholecSeg8k: 0.9489	] ----  [best_Ep_CholecSeg8k 240 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9489] 
+Epoch: 240	Time: 892.5914	Loss: -0.9108	LearningRate 0.000055
+[Epoch 241	 EMA Pseudo Dice CholecSeg8k: 0.9490	] ----  [best_Ep_CholecSeg8k 241 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9490] 
+Epoch: 241	Time: 889.8710	Loss: -0.9114	LearningRate 0.000050
+[Epoch 242	 EMA Pseudo Dice CholecSeg8k: 0.9490	] ----  [best_Ep_CholecSeg8k 242 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9490] 
+Epoch: 242	Time: 890.1814	Loss: -0.9139	LearningRate 0.000045
+[Epoch 243	 EMA Pseudo Dice CholecSeg8k: 0.9490	] ----  [best_Ep_CholecSeg8k 242 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9490] 
+Epoch: 243	Time: 890.6109	Loss: -0.9132	LearningRate 0.000040
+[Epoch 244	 EMA Pseudo Dice CholecSeg8k: 0.9490	] ----  [best_Ep_CholecSeg8k 244 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9490] 
+Epoch: 244	Time: 889.6395	Loss: -0.9125	LearningRate 0.000035
+[Epoch 245	 EMA Pseudo Dice CholecSeg8k: 0.9490	] ----  [best_Ep_CholecSeg8k 245 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9490] 
+Epoch: 245	Time: 885.8462	Loss: -0.9116	LearningRate 0.000030
+[Epoch 246	 EMA Pseudo Dice CholecSeg8k: 0.9490	] ----  [best_Ep_CholecSeg8k 246 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9490] 
+Epoch: 246	Time: 885.1400	Loss: -0.9140	LearningRate 0.000024
+[Epoch 247	 EMA Pseudo Dice CholecSeg8k: 0.9491	] ----  [best_Ep_CholecSeg8k 247 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9491] 
+Epoch: 247	Time: 885.2269	Loss: -0.9112	LearningRate 0.000019
+[Epoch 248	 EMA Pseudo Dice CholecSeg8k: 0.9491	] ----  [best_Ep_CholecSeg8k 248 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9491] 
+Epoch: 248	Time: 887.8214	Loss: -0.9139	LearningRate 0.000013
+[Epoch 249	 EMA Pseudo Dice CholecSeg8k: 0.9491	] ----  [best_Ep_CholecSeg8k 249 best_it_CholecSeg8k 1292 best_ema_dice_CholecSeg8k 0.9491] 
+Epoch: 249	Time: 887.1498	Loss: -0.9122	LearningRate 0.000007
