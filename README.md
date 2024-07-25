@@ -1,24 +1,23 @@
-# Proyecto Final de Grado
-## Estudio y Mejora de Técnicas de Segmentación de Imágenes a través del Aprendizaje Auto Supervisado
-**Autor:** Ismael Tse Perdomo Rodríguez
-**Tutores:** Félix Fuentes y Guillermo Iglesias
+# Final Degree Project
+## Study and Improvement of Image Segmentation Techniques through Self-Supervised Learning
+**Author:** Ismael Tse Perdomo Rodríguez
+**Mentors:** Félix Fuentes y Guillermo Iglesias
 
 ### Asbtract 
-Pese a los excelentes resultados obtenidos en el campo del procesamiento del lenguaje natural y la clasificación de imágenes,
-el paradigma Auto Supervisado no ha tenido especial relevancia respecto a la tarea de segmentación semántica. El presente
-Proyecto de Fin de Grado (PFG) se centra en el estudio y mejora de las técnicas actuales de segmentación de imágenes laparoscópicas,
-utilizando el aprendizaje auto supervisado, con el objetivo de mejorar los resultados clínicos y la seguridad de los pacientes.
+Despite the remarkable success in natural language processing and image classification, the self-supervised paradigm has not been particularly 
+impactful in the domain of semantic segmentation. This Final Degree Project aims to study and enhance current techniques for laparoscopic image
+segmentation using self-supervised learning, with the objective of improving clinical outcomes and patient safety.
 
-Para ello, se ha implementado un *pipeline* de pre-entrenamiento auto supervisado, donde se combinan métodos discriminativos
-y generativos para extraer información relevante de la naturaleza de las imágenes, sin la necesidad de extraer etiquetas manualmente.
-Este enfoque ha sido validado mediante experimentos exhaustivos, comparando su rendimiento con dos *baselines* supervisados,
-que sirven a modo de representantes de las principales arquitecturas tradicionales.
+A self-supervised pre-training pipeline was developed, integrating both discriminative and generative approaches to extract essential information
+from images without the need for manual labeling. This method was rigorously validated through extensive experiments, and its performance was
+compared to two supervised baselines representing the main traditional architectures.
     
-Los resultados obtenidos demuestran una mejora significativa en la segmentación de imágenes laparoscópicas, con una reducción drástica
-de hasta el 40% en el tiempo de procesamiento comparado con las técnicas supervisadas. Estas mejoras son especialmente notables en
-escenarios clínicos complejos donde la variabilidad de las imágenes es alta y el margen de error es mínimo, alcanzando un *Dice Coefficient*
-DC de 0.95. De este modo, se abre la posibilidad de aplicar esta metodología en entornos clínicos reales, para continuar avanzando en
-la precisión y eficiencia de los procedimientos quirúrgicos asistidos por imagen.
+The results demonstrate a significant enhancement in laparoscopic image segmentation, with a substantial reduction in processing time by up to 40%
+compared to supervised techniques. These improvements are especially notable in complex clinical scenarios where image variability is high and the
+margin for error is minimal, achieving a \textit{Dice Coefficient} of 0.95.
+    
+This methodology shows great promise for application in real clinical settings, paving the way for continued advancements in the precision and
+efficiency of image-assisted surgical procedures.
 
 ### Citations
 ```bibtex
